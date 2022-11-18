@@ -20,6 +20,7 @@ jobs:
           echo "tag=v$VERSION" >> $GITHUB_OUTPUT
       - name: Check tag is new
         run: |
+          git fetch origin --tags
           if git tag |grep -qE ^"${{ steps.tag.outputs.tag }}"$; then
             echo "tag already exists"
             exit 1
