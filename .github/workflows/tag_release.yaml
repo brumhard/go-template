@@ -13,6 +13,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # tag=v3.1.0
+        # using a PAT is necessary to trigger the release workflow
+        # see https://github.com/orgs/community/discussions/25702
+        with:
+          token: ${{ secrets.PAT }}
       - name: Get version from file
         id: tag
         run: |
@@ -20,13 +24,12 @@ jobs:
           echo "tag=v$VERSION" >> $GITHUB_OUTPUT
       - name: Check tag is new
         run: |
+          git fetch origin --tags
           if git tag |grep -qE ^"${{ steps.tag.outputs.tag }}"$; then
             echo "tag already exists"
             exit 1
           fi
       - name: Create and push tag
         run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
           git tag ${{ steps.tag.outputs.tag }}
           git push --tags
