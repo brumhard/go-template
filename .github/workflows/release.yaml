@@ -39,6 +39,6 @@ jobs:
           # TODO(brumhard): set back to latest after issue is fixed
           # https://github.com/goreleaser/goreleaser/issues/3573
           version: v1.10.3
-          args: release --rm-dist
+          args: release --snapshot
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
