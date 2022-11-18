@@ -3,9 +3,9 @@ name: tag-release
 on:
   push:
     branches:
-      - main
-    paths:
-      - "config/version.txt"
+      - fix/tag-release-pipeline
+    # paths:
+    #   - "config/version.txt"
 
 jobs:
   tag:
